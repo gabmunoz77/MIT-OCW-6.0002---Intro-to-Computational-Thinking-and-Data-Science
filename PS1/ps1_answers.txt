@@ -1,0 +1,58 @@
+Problem A.5 Writeup
+
+1. What were your results from compare_cow_transport_algorithms? Which algorithm runs faster? Why?
+
+-> The greedy algorithm runs much faster than the brute force algorithm. It takes running the greedy algorithm more than
+60,000 times (ballpark 65,000 times) to sort of consistently match 2 (!) decimal places with the brute force algorithm.'
+The greedy algorithm runs much much faster because--as opposed to the brute force algorithm--it does not enumerate all
+the possible solutions. More fundamentally, the greedy algorithm BUILDS A solution as it runs, considering the
+sub-problems to solve the larger problem. It does not reconsider a particular decision/path/branch in its execution as
+it finds a solution. In layman terms, it does not look back once it chooses a path in building a solution.
+
+2. Does the greedy algorithm return the optimal solution? Why/why not?
+
+-> It does not return the optimal solution because the problem does not have an optimal substructure. That is, the
+optimal solutions to the sub-problems do not constitute the optimal solution to the larger problem. This occurs because
+greedy algorithms do NOT consider the entire dataset and therefore will often execute following a path that does not
+include the optimal solution and will simply make the "best" decision/find the "best" solution at that point.
+
+3. Does the brute force algorithm return the optimal solution? Why/why not?
+
+-> Yes it does. The brute force algorithm considers the entire dataset and enumerates every possible solution.
+It compares them all, finding a current optimal solution, and updating it as it runs. Once it finishes, whatever is
+the current optimal solution will be the optimal solution by definition--its last update means it found the optimal
+solution at that point.
+
+
+Problem B.2 Writeup
+
+1. Explain why it would be difficult to use a brute force algorithm to solve this problem if there were 30 different egg
+weights. You do not need to implement a brute force algorithm in order to answer this.
+
+-> It would be difficult to use a brute force algorithm to solve this with 30 different egg weights because we would
+need to enumerate all the potential solutions. With 30 different egg weights, the number of branches and subbranches to
+explore would be enormous. Using the decision tree approach in which we take/don't take the "best" egg at the time and
+explore the resulting 2 branches, we could grow the tree up to 2^n, which is 2^30. At worst, we would need to enumerate
+all different combinations of the 30 different egg weights and eliminate all invalid solutions (ones that go above the
+target weight) and the compare to find the minimum.
+
+2. If you were to implement a greedy algorithm for finding the minimum number of eggs needed, what would the objective
+function be? What would the constraints be? What strategy would your greedy algorithm follow to pick which coins
+(HAHA! EGGS!) to take? You do not need to implement a greedy algorithm in order to answer this.
+
+-> Using a greedy algorithm, the objective function would be the number of eggs needed to fill the weight capacity left
+on the spaceship to transport cows back to Aurock. We need to MINIMIZE the objective function (number of eggs).
+The constraint would be the weight capacity left on the spaceship. The strategy would be to take the most eggs possible
+of the current greatest possible weight available at any given point in time. First I would take the greatest
+weight egg, and take as many as I can while I remain under the weight capacity. Then I would move on to the next
+greatest weight and take as many as I can without going over the weight capacity, and so on.
+
+3. Will a greedy algorithm always return the optimal solution to this problem? Explain why it is optimal or give an
+example of when it will not return the optimal solution. Again, you do not need to implement a greedy algorithm in order
+to answer this.
+
+-> It won't always return the optimal solution because the locally optimal choices in aggregate don't lead to a globally
+optimal solution. It is not always best to take the largest egg possible. As an example, take egg weight (9, 6, 1) and
+a weight capacity of 14. Taking 9 first, then five 1s yields 6 eggs. But if we left the 9 there and took the 6 instead,
+we would be able to take two 6s, be left with 2, and take two 1s for a total of 4 eggs.
+
